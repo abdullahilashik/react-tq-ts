@@ -42,5 +42,47 @@ export async function getPostsPaginated(page: number, per_page: number = 10) {
 
 
 // create new post
+export async function createPost(payload) {
+  const request = await fetch("http://localhost:3000/posts", {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      'Content-type': 'application/json',
+      'accept': 'application/json'
+    }
+  });
+  if (!request.ok) {
+    throw new Error("Failed to get data");
+  }
+  const response = await request.json();
+  return response;
+}
 // update post
+
+export async function updatePostById(payload, id) {
+  const request = await fetch("http://localhost:3000/posts?id=" + id, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+    headers: {
+      'Content-type': 'application/json',
+      'accept': 'application/json'
+    }
+  });
+  if (!request.ok) {
+    throw new Error("Failed to get data");
+  }
+  const response = await request.json();
+  return response;
+}
+
 // delete post
+export async function deletePostById(id: number) {
+  const request = await fetch("http://localhost:3000/posts?postId=" + id, {
+    method: "DELETE",
+  });
+  if (!request.ok) {
+    throw new Error("Failed to delete data");
+  }
+  const response = await request.json();
+  return response;
+}
