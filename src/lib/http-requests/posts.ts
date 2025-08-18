@@ -1,3 +1,5 @@
+import { delay } from "../delay";
+
 // get all posts
 export async function getPosts() {
   const request = await fetch("http://localhost:3000/posts", {
@@ -14,6 +16,17 @@ export async function getPosts() {
 
 export async function getPostById(id: number) {
   const request = await fetch("http://localhost:3000/posts?postId=" + id, {
+    method: "GET",
+  });
+  if (!request.ok) {
+    throw new Error("Failed to get data");
+  }
+  const response = await request.json();
+  return response;
+}
+export async function getPostsByUserId(id: number) {
+  await delay(5);
+  const request = await fetch("http://localhost:3000/posts?userId=" + id, {
     method: "GET",
   });
   if (!request.ok) {

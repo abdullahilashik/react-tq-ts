@@ -1,11 +1,12 @@
-import ParallelQueries from "./components/parallel-queries/ParallelQueries"
+import ParallelRequest from "./components/posts/ParallelRequest"
+
 
 function App() {
   
 
   return (
     <>
-      <ParallelQueries />      
+      <ParallelRequest />
     </>
   )
 }
