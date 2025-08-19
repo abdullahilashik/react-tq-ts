@@ -24,14 +24,30 @@ const ParallelRequest = () => {
 
     const isLoadingPosts = posts.some(i => i.isLoading || i.isFetching);    
 
+    if(isLoadingPosts){
+        return (
+            <div className='text-3xl font-semi uppercase'>Loading please wait...</div>
+        );
+    }
+
   return (
     <>
-        {isLoading && <p>Users loading....</p>}
-        {isSuccess && <p>{users.length} Users loaded.</p>}
-        {isLoadingPosts && <p>Parallel query loading...</p>}
-        <pre>
-            {!isLoadingPosts && <p>{posts.reduce((acum,i) => i.data.length + acum, 0)} Posts found</p>}
-        </pre>
+        <div className="flex flex-col gap-4">
+            {
+                posts?.map((post, index)=> (
+                    <div key={index} className="grid grid-cols-4 gap-2">
+                        {
+                            post?.data?.map(item=>(
+                                <div className="p-4">
+                                    <h4 className='font-semibold'>{item.title}</h4>
+                                    <p className='text-xs'>{item.body}</p>
+                                </div>
+                            ))
+                        }
+                    </div>
+                ))
+            }
+        </div>
     </>
   )
 }
