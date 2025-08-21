@@ -81,6 +81,22 @@ export async function getPostsPaginated(page: number = 1, per_page: number = 10)
   return response;
 }
 
+export async function getPostsInfiniteLoading({pageParam = 1}) {
+  await delay(5);
+  const page = pageParam;
+  const per_page = 20;
+  const request = await fetch(
+    `http://localhost:3000/posts?_page=${page}&_per_page=${per_page}`,
+    {      
+      method: "GET",
+    }
+  );
+  if (!request.ok) {
+    throw new Error("Failed to get data");
+  }
+  const response = await request.json();
+  return response;
+}
 
 // create new post
 export async function createPost(payload) {
